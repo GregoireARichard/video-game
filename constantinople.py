@@ -18,18 +18,19 @@ def _surrogatepair(match):
 
 def with_surrogates(text):
     return _nonbmp.sub(_surrogatepair, text)
-
+#this game is about the fall of constantinople and the main character's name isnt switchable
 #starting app
 app = tkinter.Tk()
 app.title("Constantinopolis launcher")
 app.geometry("600x400")
+#here go all the fonts
 font = ('Helvetica',10)
 font2 = ('Helvetica Bold',10)
-#main app declaration
+font3 = ('Helvetica Bold', 15)
+#main app dictionaries
 
-#main app variables
 
-Inventory = {
+Inventory = { #main inventory
     "ring ": False,
     "horse" : False,
     "knife" : True,
@@ -43,7 +44,7 @@ Inventory = {
     "vital_Force" : 100,
     "golden_Coins" : 30,
 }
-abilities = {
+abilities = { #mental abilities
     "sneakyEscape" : True,
     "mindTrick" : False,
     "courage": False,
@@ -53,7 +54,7 @@ abilities = {
     "diplomacy" : False,
     "resistance": 0,
 }
-stateOfWarnings = {
+stateOfWarnings = { #state of bot warning
     "globalWarning" : False,
     "localWarning"  : False,
     "particularCustomWarning" : False
@@ -63,32 +64,32 @@ stateOfBtn = {
     "corruptionUsed" : False,
     "trickUsed" : False,
 }
-capacities = {
+capacities = { #capabilities of the main character
     "attack" : 15,
     "armour" : 25,
     "active" : True
 }
-botCustomAbilities = {
+botCustomAbilities = { #bot capabilities
     "attack" : 10,
     "defense" : 3,
     "active" : True,
     "hasTransmitted" : False,
 }
-boatState = {
+boatState = { #boat state and resistance
     "buoyancy" : 10,
     "hp" : 100,
     "armour" : 1,
     "weaponry": False,
     "active" : True
 }
-weatherState = {
+weatherState = { #state of weather
     "clearSea" : True,
     "hurricane" : False,
     "turbulentSea": False,
     "badWind" : False
 
 }
-mercenariesCapabilities ={
+mercenariesCapabilities ={ #mercenaries
     "troops": 50,
     "attack" : 25,
     "defense" : 10,
@@ -96,14 +97,14 @@ mercenariesCapabilities ={
     "archer" : False,
     "heavyWeaponry" : True
 }
-lordCapabilities = {
+lordCapabilities = {  #"first " boss capabilities
     "troops" : 35,
     "attack" : 15,
     "defense": 30,
     "ships" : False,
     "archer" : True
 }
-piratesCapabilities = {
+piratesCapabilities = { #pirates
     "troops" : 60,
     "attack" : 20,
     "defense" : 5,
@@ -112,12 +113,10 @@ piratesCapabilities = {
     "heavyWeaponry": True
 }
 #main app function     
-def mainGameLauncher():
+def mainGameLauncher(): #here is the main app, to be differentiated from the app def which is the launcher 
     maingame = tkr.Tk()
     maingame.title("Constantinopolis")
     maingame.geometry("1000x600")
-    #maingame.Playsound('song.mp3', winsound.SND_ALIAS | winsound.SND_ASYNC)
-
     def keyBind(event): # prints inventory when i is pressed 
         for element, state in Inventory.items():
             print( element, " : ", state)   
@@ -130,7 +129,7 @@ def mainGameLauncher():
             else:
                 capacities["armour"] -= attack
                 print("heureusement votre armure a absorbé une partie des dégâts 🛡️ (" + str(attack)+ ")")
-    def casualCombat():
+    def casualCombat(): #function defining a casual combat without any armor
         if Inventory["sword"]:
             randAttack = random.randint(10,15)
         elif Inventory["knife"]:
@@ -138,7 +137,7 @@ def mainGameLauncher():
         else:
             randAttack = 0
         return randAttack
-    def customBotFight():
+    def customBotFight(): #function building the fight against a bot
         fightRandomCustomBot = random.randint(1,2)
         if capacities["attack"] > botCustomAbilities["defense"] and fightRandomCustomBot == 1:
             print("\nVous tranchez la gorge à ce pauvre Officier de Douane d'un seul coup, 🗡️il n'a pas le temps de donner l'alerte✔️")
@@ -155,19 +154,19 @@ def mainGameLauncher():
             stateOfWarnings["globalWarning"] = True
 
 
-    #here go all the variables of the second trajectory (through the seas)
 
     traj2_1 = tkinter.Label(maingame, text="Nous voilà dans la mer de Marmara "+ with_surrogates('🌊') +", mais attention, les navires Ottomans rôdent !!" + with_surrogates('⛵☪️'), font = font)
 
     willPlayTrj1 = True
     willPlayTrj2 = True
-    def trajectory1():
-        if willPlayTrj1 == True:
+    def trajectory1(): 
+        #here is the first trajectory 
+        if willPlayTrj1 == True: #blocks the user from choosing the second trajectory if he already chose
             Inventory["golden_Coins"] = 30
             print("\nVous avez "  + str(Inventory["golden_Coins"]) + " pièces d'or💰")
             print("\nVous voilà arrivés à Philippoupoli,👑 dans l'ancien empire Bulgare ! Attention les Ottomans☪️ vous recherchent, soyez discret👀")
             print("\nHolà! Un Homme à l'allure étrange vous arrête👨 ! \n  Il vous propose de venir tromper les fonctionaires du sultan et promet une forte récompense💸 \n Attention, vos chances sont relativement aléatoires ⚖️! ")
-            def fourthMission():
+            def fourthMission(): 
                 print("\n Et voilà notre voyage 🧳 est bientôt terminé, nous voilà à la frontière entre l'empire Ottoman🌙 et le Saint Empire Germanique ✝️👑")
                 if stateOfWarnings["particularCustomWarning"]:
                     print("\nAttention ! ⚠️ la douane vous recherche activement ! 🔍")
@@ -179,10 +178,11 @@ def mainGameLauncher():
                 def acceptCastle():
                     print("\nà la bonne heure mon Ami, nous allons prendre soins de vous !🥘 et nous vous emmenons à Florence !")
                     print("V I C T O I R E✌️")
+                    victoryElement = tkinter.Label(maingame, text = "V I C T O I R E" + with_surrogates('✌🏻')).place(x= 400, y=300 )
                     print("voici l'état de vos inventaires et capacités mentales:")
-                    for element, state in Inventory.items():
+                    for element, state in Inventory.items(): #prints the inventory
                         print( element, " : ", state)
-                    for element, state in abilities.items():
+                    for element, state in abilities.items(): #print the mental abilities
                         print( element, " : ", state)      
 
                     stateOfWarnings["globalWarning"] = False
@@ -194,6 +194,7 @@ def mainGameLauncher():
                     print("G 🅰️ M E  O V E R 💀")
                 acceptCastleBtn = tkinter.Button(maingame, text = "Accepter l'offre", command = acceptCastle).place(x =280 , y =230)
                 refuseCastleBtn  = tkinter.Button(maingame, text = "Refuser l'offre", command = refuseCastle).place(x =190 , y =230)
+                #so as you might notice the tkinter layouts function are written as such : yourVar = tkiner.typeOfLayout(yourapp, text="").place
             def thirdMission():
                 print("vous voilà dans les plaines de Panonie🏇🏻")
                 def attack():
@@ -312,10 +313,8 @@ def mainGameLauncher():
                     stateOfBtn["knifeUsed"] = True
                     print("\n Allons bon ! Continuons vers notre prochaine destination : Sophia et son grand marché où regnent bandits 👺et grands marchands🧙")
                     secondMission()
-
-                    # if stateOfBtn["knifeUsed"] == True:
-                    #     knifeBtn['state'] = DISABLED
-                def corruption():
+                def corruption(): 
+                    #corruption choice function
                     if Inventory["golden_Coins"] >= 5:
                         corruptionPb = random.randint(1,2)
                         if corruptionPb == 1:
@@ -365,13 +364,6 @@ def mainGameLauncher():
                 corruptionBtn = tkinter.Button(maingame, text = "Utiliser la corruption", command = corruption).place(x=297, y=105) 
                 trickBTn = tkinter.Button(maingame,text = "Utiliser un tour de passe passe", command = trick).place(x=420, y=105) 
                 
-                # if stateOfBtn["knifeUsed"] == True:
-                #     knifeBtn['state'] = tk.DISABLED
-                # elif stateOfBtn['corruptionUsed'] == True:
-                #     corruptionBtn['state'] = tk.DISABLED
-                # elif stateOfBtn["trickUsed"] == True:
-                #     trickBtn['state'] = tk.DISABLED
-                
             def refuseFirstMission():
                 print("Sagouin ! Vous me le payerez ! \n l'homme vous pousse violamment👊 et vous prends 10 pièces d'or 💸!")
                 Inventory["golden_Coins"] -= 10 
@@ -384,6 +376,7 @@ def mainGameLauncher():
     def arrivalToFlorence():
         print("V I C T O I R E vous êtes arrivé à Florence ✌🏻!")
         print("\n voici votre inventaire : ")
+        victoryElement = tkinter.Label(maingame, text= "V I C T O I R E " + with_surrogates('✌🏻'), font = font3).place(x = 400 , y = 300)
         for element, state in Inventory.items():
             print( element, " : ", state)     
     def pirateFight():
@@ -502,7 +495,8 @@ def mainGameLauncher():
                 refuseLordBtn = tkinter.Button(maingame, text = "Piller son fief", command = refuseLord).place(x =700 , y = 150)
 
 
-            def navalFight():
+            def navalFight(): 
+                #here defines the function doing the naval fight once
                 print("vous êtes attaqués par des navires Ottomans ! 🌙")
                 if abilities["MarketAbility"]:
                     print("Heureusement vos amis Mercenaire s'en chargent !🏴󠁶󠁮󠁳󠁧󠁿")
@@ -533,6 +527,7 @@ def mainGameLauncher():
             def crete():
                 print("Vous arrivez bientôt en Crète🏝️, là-bas des dignitaires byzantins👑 vous y attendent, mais attention, le temps se gâte 🌩️")
                 def isTheWeatherWorsening():
+                    #this function checks if the weather will be worsening
                     weather = random.randint(0,3)
                     if weather < 2:
                         print("\nVous avez de la chance ! Les nuages s'éclairsissent au loin ! 🌞")
@@ -561,7 +556,7 @@ def mainGameLauncher():
                                     Inventory["food_Quantity"] = 0
                                 creteCastle()
                         else:
-                            navalFight()
+                            navalFight() 
 
                     elif weather == 3:
                         print("\nLa mer s'âgite brusquement 🌊")
@@ -616,6 +611,7 @@ keyBind = tkinter.Label(app, text ="Vous pourrez appuyer sur i à tout moment si
 instructions = tkinter.Label(app, text ="J'ai une importante mission pour vous !"+ with_surrogates('📜'))
 
 def startFunction():
+    #this function launches the maingame so the game starts
     global app
     app.destroy()
     mainGameLauncher()
@@ -624,3 +620,5 @@ start.pack()
 button_start.pack()
 keyBind.pack()
 app.mainloop()
+
+#Thanks for your time Sir !
